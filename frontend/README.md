@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# football-result-prediction 
+*
+This application was developed for predicting final result of football(soccer) games between two football teams based on the past a probabiliy study of results from  past games  between these teams.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win the game.
+*  
 
-## Available Scripts
+##  Demo  
+[Live Demo](http://localhost:3000) | [Video Walkthrough](#)  
 
-In the project directory, you can run:
+## Preview  
+![Demo GIF](./demo.png)  
 
-### `npm start`
+## Tech Stack  
+- **Frontend:** React
+ The frontend code was create using ReactJS and the styling was made using CSS Styling rules. To achieve the expected results, various React techniques were used such as Router(using BrowserRouter, Routes, Route and Link) for routing, Hooks (I used useState, useEffect and useRef hooks), etc 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Backend:** 
+For backend implementation, Node.js, Express tools were used in this project to serve assets requested by the client.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Database:** 
+MongoDB was the elected database technology for the present project since this technology uses JSON format which friendly to JavaScript. To manage data from and to the database object, async functions were used in order to use await for asynchronous implementation. 
+  
 
-### `npm test`
+## Features   
+You can ask the application to suggest you which one of the two football team has more chance to win the game by chosing between:
+    * International Competitions: where you can chose either the names of the two country disputing the game (e.g. France / Italy) and this will automatically select the International competition in which we find this two teams.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    *or by selecting the name of an International Competition and the application tells which countries belong to this Competition. 
 
-### `npm run build`
+## Installation 
+ You can clone this project using the following command (assuming that you already have git installed in your computer)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. git clone https://github.com/mfindaadriano/football-result-prediction.git  
+2. `npm install`  
+3. `pnpm run react`
+4.  `pnpm run start`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Description of the role of the above command
+- 1. To clone repo containing the project
+- 2. To install the dependencies, or package (modules ) defined in package.json file
+- 3. to start reactJS server 
+- 4. to start backend nodeJS/Express Server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Future Improvements  
+- [ ] Add feature X  
+- [ ] Improve Y  
