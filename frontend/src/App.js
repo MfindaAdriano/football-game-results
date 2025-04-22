@@ -7,6 +7,8 @@ import './css/router.css';
 
 // importing components
 import International from "./components/International";
+import Domestic from "./components/Domestic";
+
 import Club from "./components/Club";
 import Competition from "./components/Competition";
 import Country from "./components/Country";
@@ -26,7 +28,7 @@ const App = (props) => {
                             <nav id="intern-domesticos">
                                 <ul>
                                     <li><Link to="/" >International</Link> </li>
-                                    <li><Link to="/domesticos">Domésticos</Link> </li>
+                                    <li><Link to="/domestic">Domésticos</Link> </li>
                                     
 
                 
@@ -35,12 +37,13 @@ const App = (props) => {
                                     <Routes>
                                         <Route index  element={<International />} />
                                         <Route path="/" element={<International />} />
+                                        <Route path="/domestic" element={<Domestic />} />
+                                        {
+                                        /*
                                         <Route path="/club" element ={<Club />} />
                                         <Route path="/competition" element ={<Competition />} />
                                         <Route path="/country" element ={<Country />} />
-
-                                        
-                                        {/*<Route path="/aboutus" element={<Aboutus />} />
+                                        <Route path="/aboutus" element={<Aboutus />} />
                                         <Route path="/contacts" element={<Contacts />} />
                                         */}
                                     </Routes>
