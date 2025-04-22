@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div id="output-d3"></div>
+    <div id="output-q"></div>
+
+    <script src="./lib/d3.v3.js"></script>
+    <script src="./lib/queue.js"></script>
+      
+    <!-- Optional JavaScript -->
+    
+    <script>
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const out1 = document.querySelector("#output-d3");
+      const out2 = document.querySelector("#output-q");
+
+      let file = "./mma-predictions.csv"; 
+      gamesFile = "./from-transfermarkt/games.csv";
+      competitionsFile = "./from-transfermarkt/competitions.csv";
+      clubsFile = "./from-transfermarkt/clubs.csv";
+        
+        d3.select(out1)
+        //.append("h1")
+        .append("h1")
+        .text("Hello Mfinda");
+
+        //document.addEventListener("load", () => {out.innerHTML = "";})
+        //queue implementation
+        queue()
+              .defer(d3.csv, gamesFile)
+              .defer(d3.csv, competitionsFile)
+              .defer(d3.csv, clubsFile)
+
+              .await(callback);
+
+        function callback(error, games, competitions, clubs){
+
+          let compData;
+          let mes = "";
+          //mes = JSON.stringify(games);
+          //for(let entry of csvData){mes += `<p>Date: ${new Date(entry.date).getFullYear()}<br/>Winner: ${entry.winner}<br/>Loser: ${entry.loser}<br/>Correct Prediction: ${entry.correct}</p>`;}
+
+          for(let entry of games){
+            const goalsHome = parseInt(entry.home_club_goals);
+            const goalsAway = parseInt(entry.away_club_goals);
+
+            const score = `${goalsHome} - ${goalsAway}`;
+            
+            const winner = goalsHome == goalsAway? `Draw Game`: goalsHome > goalsAway? `${entry.home_club_name}`: `${entry.away_club_name}`;
+            
+            const compData = competitions.find((comp) => comp.competition_id == entry.competition_id);
+            
+            mes += `
+              <p> 
+                Competition: <b>${compData.name} </b><br/>
+                Country: <b>${compData.country_name} </b><br/>
+                Year: <b>${entry.season} </b><br/>
+                Date: <b>${entry.date} </b><br/>
+                Home Club: <b>${entry.home_club_name} </b><br/>
+                Away Club: <b>${entry.away_club_name} </b><br/>
+                Score: <b>${score} </b><br/>
+                Winner: <b>${winner}</b> 
+              </p>
+            `;
+
+            
+            //mes += `<p> ${JSON.stringify(entry)} <div id="selecionado"></div></p>`;
+
+            //if(entry.first_name === "Miroslav" && entry.last_name === "Klose"){mes += `<br/><img src=${entry.image_url} style="width: 300px; height: 300px; padding: 20px; background-color: blue; border: 2px solid yellow; border-radius: 12px" />`}
+          }
+
+          out2.innerHTML = mes;
+        }
+
+
+        out2.innerHTML = "Data is being loaded...";
+        
+        //alert("Hello");
+      });
+      
+        
+
+        //alert("Hello");
+    </script>
+  </body>
+</html>

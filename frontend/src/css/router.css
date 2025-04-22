@@ -1,0 +1,93 @@
+
+body {
+    background-color: transparent;
+}
+
+#br-router{
+    background-color: transparent;
+    
+}
+
+header{
+    background-color: rgba(112, 112, 112, 0.4);
+    text-align: center;
+    font-size: 3vw;
+}
+header>nav{
+    font-weight: bold;
+}
+header>i{
+    font-size: 2vw;
+    margin-left: 0.1vw;
+    color: gray;
+}
+
+#body{
+    display:flex;
+    padding: 5px;
+
+}
+#left-side-nav{
+    display: flex;
+    justify-content: center;
+    background-color: gray;
+    width: 40vw;
+    height: 85vh;
+}
+
+#intern-domesticos{
+    background-color: transparent;
+}
+
+#intern-domesticos > ul{
+    display:flex;
+    justify-content: center;
+    background-color: transparent;
+
+}
+
+#nav-output{
+    background-color: transparent;
+    height: 300px;
+}
+
+
+#data-output{
+    background-color:black;
+    width: 75vw;
+    height: 85vh;
+}
+
+ul {
+    display: flex;
+    gap: 10px;
+    background-color: transparent;
+    font-size: 2vw;
+    list-style: none;
+    padding: 4px;
+    margin:0px;
+}
+
+li{
+    background-color: transparent;
+    color: white;
+}
+li:hover{
+    border: 1px solid white;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+
+
+#intern-output{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    text-align: center;
+    padding: 0px 10px;
+}
