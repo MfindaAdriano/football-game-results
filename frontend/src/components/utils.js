@@ -41,7 +41,7 @@ function pickCsvFile(file, callback){
 }
 
 // seed function to seed data to our database
-function dbSeedData(dbURL){
+function dbSeedData(dbURL, keys){
 
 
     fetch(dbURL, 
@@ -49,7 +49,7 @@ function dbSeedData(dbURL){
                     method:"POST",
                     //headers: new Headers().set("content-type", "application/json"),
                     //headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({name:"Mfinda", idade: 48}),
+                    body: JSON.stringify(keys), // ({name:"Mfinda", idade: 48}),
                 }
             )
 }
@@ -118,4 +118,4 @@ function handleSelectedCompetition(dbURL, setObjecto1, setObjecto2){
     //alert(select1.current.options[select1.current.selectedIndex].value);
 }
 
-export {handleSelectedCountry, handleSelectedCompetition, pickCsvFile, csvToObject};
+export {handleSelectedCountry, handleSelectedCompetition, dbSeedData, pickCsvFile, csvToObject};
