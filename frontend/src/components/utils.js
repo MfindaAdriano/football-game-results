@@ -1,3 +1,20 @@
+//const d3 = require('../seedData/lib/d3.v3.js');
+//import d3 from '../seedData/lib/d3.v3.js';
+
+// seed function to seed data to our database
+function dbSeedData(dbURL){
+
+
+    fetch(dbURL, 
+                {
+                    method:"POST",
+                    //headers: new Headers().set("content-type", "application/json"),
+                    //headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({name:"Mfinda", idade: 48}),
+                }
+            )
+}
+
 // to handle search starting with a selected country
 function handleSelectedCountry(dbURL, setObjecto1, setObjecto2){
     fetch(dbURL)
