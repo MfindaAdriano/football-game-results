@@ -58,8 +58,10 @@ header>i{
 
 #data-output{
     background-color:black;
+    color: white;
     width: 75vw;
     height: 85vh;
+    overflow: auto;
 }
 
 ul {

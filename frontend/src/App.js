@@ -13,8 +13,12 @@ import Club from "./components/Club";
 import Competition from "./components/Competition";
 import Country from "./components/Country";
 
+let dataOutput;
 
 const App = (props) => {
+
+    dataOutput = useRef();
+
     return (
         <div id="App">
             <BrowserRouter>
@@ -52,7 +56,7 @@ const App = (props) => {
                             </nav>
                             
                         </div>
-                        <div id="data-output"></div>
+                        <div id="data-output" ref={dataOutput}></div>
                     </div>
                     
 
@@ -84,4 +88,5 @@ const App = (props) => {
     )
 }
 
+export {dataOutput};
 export default App;
