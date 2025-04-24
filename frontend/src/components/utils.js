@@ -1,6 +1,6 @@
 
 // function to convert csv file to object
-function csvToObject(fileString){
+function csvToObject(fileString, callback){
     let lines = fileString.toString().split("\n");
     const keys = lines[0].split(",");
 
@@ -19,7 +19,8 @@ function csvToObject(fileString){
         objects.push(object)
     }
 
-    return objects;
+    //return objects;
+    callback(objects);
 }
 
 //const file = fich.files[0];
@@ -41,21 +42,43 @@ function pickCsvFile(file, callback){
 }
 
 // seed function to seed data to our database
-function dbSeedData(dbURL, keys){
+function dbSeedData(dbURL, objs){
 
+    //for (const obj of objs){
+        fetch(dbURL, 
+            {
+                method:"POST",
+                //headers: new Headers().set("content-type", "application/json"),
+                //headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(objs), // ({name:"Mfinda", idade: 48}),
+            }
+        )
+        .then((data) => console.log("After Seeding: ", data))
+        .catch(err => console.log("Seeding Error",  err))
+    //}
+    
+}
 
-    fetch(dbURL, 
-                {
-                    method:"POST",
-                    //headers: new Headers().set("content-type", "application/json"),
-                    //headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(keys), // ({name:"Mfinda", idade: 48}),
-                }
-            )
+// seed function to seed string to our database
+function dbSeedString(dbURL, str){
+
+    //for (const obj of objs){
+        fetch(dbURL, 
+            {
+                method:"POST",
+                //headers: new Headers().set("content-type", "application/json"),
+                //headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(str), // ({name:"Mfinda", idade: 48}),
+            }
+        )
+        .then((data) => console.log("After Seeding: ", data))
+        .catch(err => console.log("Seeding Error",  err))
+    //}
+    
 }
 
 // to handle search starting with a selected country
-function handleSelectedCountry(dbURL, setObjecto1, setObjecto2){
+function handleSelectedCountry(dbURL, setObjecto1, setObjecto2, setCompetObject, cont){
     fetch(dbURL)
     .then(response => {
         if(response.ok){
@@ -63,22 +86,31 @@ function handleSelectedCountry(dbURL, setObjecto1, setObjecto2){
             return response.json();
         }
     })
-    .then(data => {
+    .then(data=> {
+        cont.innerHTML = data[0][0] +  " " + data[0][0];
+
         
         let JSX1 = [];
         let JSX2 = [];
+        let JSX3 = [];
+        
 
         //select1.current.options.length = 0;
         //select2.current.options.length = 0;
 
-        for(const obj of data){    
-            JSX1.push(<option>{obj.country}</option>);
-            JSX2.push(<option>{obj.competition}</option>);
+        //for(const obj of data[0]){
+        for(let ind = 0; ind < data[0].length; ind++){    
+            JSX1.push(<option>{data[0][ind]}</option>);
+            JSX2.push(<option>{data[1][ind]}</option>);
+            JSX3.push(<option>{data[2][ind]}</option>);
                         
         }
 
+
         setObjecto1(JSX1);
         setObjecto2(JSX2);
+        setCompetObject(JSX3);
+        
         
     });
 
