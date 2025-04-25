@@ -130,7 +130,7 @@ export default function International(props) {
                 */}
             </nav>
 
-            <div ref={outputSummary} style={{backgroundColor:"gray", marginTop: "2vh", height:"50vh", display:"flex", flexDirection:"column", alignItems: "center", width:"100%"}}>
+            <div ref={outputSummary} style={{backgroundColor:"gray", marginTop: "2vh", height:"50vh", display:"flex", flexDirection:"column", alignItems: "center", width:"100%", overflowY:"scroll"}}>
                 {summary}
             </div>
             

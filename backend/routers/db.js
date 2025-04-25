@@ -75,9 +75,16 @@ router.post("/playedgames", (req, res) => {
     DbAssets.playedGames(body.team1, body.team2, body.internOrDomestic, (ar) =>{
         //console.log("Played game received a request:\n", JSON.parse(ar));
 
-        //if(ar.length !== 0){
+        //if(body.internOrDomestic){ // if international
             console.log(ar);
             res.json(ar);
+        //}
+        /*
+        else{ // if domestic
+            console.log(ar);
+            res.json(ar);
+        }
+        */
             //res.json([{nome: "Mfinda, the Programmer"}]);
         //}else{ar["No data Found, I am Sorry!"]}
     })

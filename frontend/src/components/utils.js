@@ -82,6 +82,13 @@ function dbSeedString(dbURL, str){
 // function to check if the two selected team have played games
 async function playedGames (team1, team2, internOrDomestic,setoutputState, setSummary, summaryIni){
 
+    if(team1 === team2){
+        store.dispatch({payload: <h2 style={{color:"yellow", marginLeft:"2vw"}}>You must chose two different teams</h2>, type:"footballAppStore/mainOutputState"});
+            setoutputState(store.getState().mainOutput);
+
+            return 0;
+    }
+
     function handleGames(callback){
         const url = "http://localhost:4500/dbs/playedgames";
 
@@ -107,69 +114,272 @@ async function playedGames (team1, team2, internOrDomestic,setoutputState, setSu
 
     handleGames(data0 => {
 
-        //const data = JSON.stringify(data0);
-        const data = data0 //[0]["home_team"];
+        // if the data does not exist 
+        if(!Array.isArray(data0)){
+            // Output message in case we find nothing in the database
+            store.dispatch({payload: <h2 style={{color:"red", marginLeft:"2vw"}}>Sorry, we found no game records between the two team names!</h2>, type:"footballAppStore/mainOutputState"});
+            setoutputState(store.getState().mainOutput);
 
-        let renderDiv = [];
-        
-
-        for(const obj of data){
-            let trs = [];
-            const tournam = obj["tournament"];
-            const date = obj["date"];
-            const city = obj["city"];
-            const country = obj["country"];
-            const team1 = obj["home_team"];
-            const team2 = obj["away_team"];
-            const score1 = parseInt(obj["home_score"]);
-            const score2 = parseInt(obj["away_score"]);
-
-            let col1 = "white", col2 = "white";
-            let resultMes = "Wins";
-    
-            trs.push(<tr><td colSpan={2}>{tournam} | {date}</td></tr>);
-            trs.push(<tr><td colSpan={2}>{city} | {country}</td></tr>);
-            trs.push(<tr><td>{team1}</td><td>{team2}</td></tr>);
-            trs.push(<tr><td>{score1}</td><td>{score2}</td></tr>);
-
-            if(score1 === score2){
-                resultMes = "Draw Game";
-                trs.push(<tr><td colSpan={2}>{resultMes}</td></tr>);
-            }
-            else if(score1 > score2){
-                col1 = "green";
-                const style = {backgroundColor:col1};
-                trs.push(<tr><td style={style}>{resultMes}</td><td></td></tr>);
-            }
-            else{
-                col2 = "green";
-                const style = {backgroundColor:col2};
-                trs.push(<tr><td></td><td style={style}>{resultMes}</td></tr>);
-            }
-
-            const table = <table border={1} style={{margin:"2vw", width:"90%", borderBottom: ".4vw solid gray"}}>{trs}</table>
-
-            renderDiv.push(table);
-
+            return 0;
         }
 
-       
+        if(internOrDomestic){ // if international game
+            //const data = JSON.stringify(data0);
+            const data = data0 //[0]["home_team"];
 
-        // update mainOutput state
-        store.dispatch({payload: <div>{renderDiv}</div>, type:"footballAppStore/mainOutputState"});
+            let renderDiv = [];
 
-        // render mainOutput data
-        setoutputState(store.getState().mainOutput);
+            // variable to handle rendering data
+            let tournam;
+            let date;
+            let city;
+            let country;
+            let team1;
+            let team2;
+            let score1;
+            let score2;
 
-        // summary rendering
-        setSummary(
-            <div>
-                {summaryIni}
+            // variables for Summary output data
+            const summaryTeam1 = data[0]["home_team"];
+            const summaryTeam2 = data[0]["away_team"];
+            let team1HomeVict = 0;
+            let team1AwayVict = 0;
+            let team1TotVict = 0;
+
+            let team2HomeVict = 0;
+            let team2AwayVict = 0;
+            let team2TotVict = 0;
+            let totalGames = 0;
+            let drawGames = 0;
+            
+
+            for(const obj of data){
+                let trs = [];
+
+                tournam = obj["tournament"];
+                date = obj["date"];
+                city = obj["city"];
+                country = obj["country"];
+                team1 = obj["home_team"];
+                team2 = obj["away_team"];
+                score1 = parseInt(obj["home_score"]);
+                score2 = parseInt(obj["away_score"]);
+            
+                let col1 = "white", col2 = "white";
+                let resultMes = "Wins";
+
+
+                // Summary implementation
+
+                totalGames ++; // total games disputed by the two teams
+
+                if(score1 === score2){
+                    drawGames ++;
+                }
+                else if(score1 > score2){
+                    if(summaryTeam1 === obj["home_team"]){
+                        team1HomeVict ++;
+                        team1TotVict ++;
+                    }else{
+                        team2HomeVict ++;
+                        team2TotVict ++;
+                    }
+                    
+                }else{
+                    if(summaryTeam1 === obj["home_team"]){
+                        team2AwayVict ++;
+                        team2TotVict ++;
+                    }else{
+                        team1AwayVict ++;
+                        team1TotVict ++;
+                    }
+                }  
+                    
+                // End Summary
+
+        
+                trs.push(<tr><td colSpan={2}>{tournam} | {date}</td></tr>);
+                trs.push(<tr><td colSpan={2}>{city} | {country}</td></tr>);
+                trs.push(<tr><td>{team1}</td><td>{team2}</td></tr>);
+                trs.push(<tr><td>{score1}</td><td>{score2}</td></tr>);
+
+                if(score1 === score2){
+                    resultMes = "Draw Game";
+                    trs.push(<tr><td colSpan={2}>{resultMes}</td></tr>);
+                }
+                else if(score1 > score2){
+                    col1 = "green";
+                    const style = {backgroundColor:col1};
+                    trs.push(<tr><td style={style}>{resultMes}</td><td></td></tr>);
+                }
+                else{
+                    col2 = "green";
+                    const style = {backgroundColor:col2};
+                    trs.push(<tr><td></td><td style={style}>{resultMes}</td></tr>);
+                }
+
+                const table = <table border={1} style={{margin:"2vw", width:"90%", borderBottom: ".4vw solid gray"}}>{trs}</table>
+
+
+                renderDiv.push(table);
+
+            }
+
+        
+
+            // update mainOutput state
+            store.dispatch({payload: <div>{renderDiv}</div>, type:"footballAppStore/mainOutputState"});
+
+            // render mainOutput data
+            setoutputState(store.getState().mainOutput);
+
+            // summary rendering
+            setSummary(
                 <div>
-                    Hello there Summary
+                    <b>{summaryIni}</b>
+                    <div>
+                        <table border={1}>
+                            <tr><th colSpan={3}>{summaryTeam1}</th></tr>
+                            <tr><td>Home</td><td>Away</td><td>Total</td></tr>
+                            <tr><td>{team1HomeVict}</td><td>{team1AwayVict}</td><td>{team1TotVict}</td></tr>
+
+                            <tr><th colSpan={3}>{summaryTeam2}</th></tr>
+                            <tr><td>Home</td><td>Away</td><td>Total</td></tr>
+                            <tr><td>{team2HomeVict}</td><td>{team2AwayVict}</td><td>{team2TotVict}</td></tr>
+                            <tr><td colSpan={3}>Total: {totalGames} | Draw: {drawGames}</td></tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }else { // if a domestic game
+            const data = data0[0] //[0]["home_team"];
+
+            let renderDiv = [];
+
+            // variable to handle rendering data
+            let tournam = data0[1];
+            let date;
+            let stadium;
+            //let country;
+            let team1;
+            let team2;
+            let score1;
+            let score2;
+
+            // variables for Summary output data
+            const summaryTeam1 = data[0]["home_club_name"];
+            const summaryTeam2 = data[0]["away_club_name"];
+            let team1HomeVict = 0;
+            let team1AwayVict = 0;
+            let team1TotVict = 0;
+
+            let team2HomeVict = 0;
+            let team2AwayVict = 0;
+            let team2TotVict = 0;
+            let totalGames = 0;
+            let drawGames = 0;
+            
+
+            for(const obj of data){
+                let trs = [];
+
+                //tournam = obj["tournament"];
+                date = obj["date"];
+                stadium = obj["stadium"];
+                //country = obj["country"];
+                team1 = obj["home_club_name"];
+                team2 = obj["away_club_name"];
+                score1 = parseInt(obj["home_club_goals"]);
+                score2 = parseInt(obj["away_club_goals"]);
+            
+                let col1 = "white", col2 = "white";
+                let resultMes = "Wins";
+
+
+                // Summary implementation
+
+                totalGames ++; // total games disputed by the two teams
+
+                if(score1 === score2){
+                    drawGames ++;
+                }
+                else if(score1 > score2){
+                    if(summaryTeam1 === obj["home_club_name"]){
+                        team1HomeVict ++;
+                        team1TotVict ++;
+                    }else{
+                        team2HomeVict ++;
+                        team2TotVict ++;
+                    }
+                    
+                }else{
+                    if(summaryTeam1 === obj["home_club_name"]){
+                        team2AwayVict ++;
+                        team2TotVict ++;
+                    }else{
+                        team1AwayVict ++;
+                        team1TotVict ++;
+                    }
+                }  
+                    
+                // End Summary
+
+        
+                trs.push(<tr><td colSpan={2}>{tournam} | {date}</td></tr>);
+                trs.push(<tr><td colSpan={2}>{stadium}}</td></tr>);
+                trs.push(<tr><td>{team1}</td><td>{team2}</td></tr>);
+                trs.push(<tr><td>{score1}</td><td>{score2}</td></tr>);
+
+                if(score1 === score2){
+                    resultMes = "Draw Game";
+                    trs.push(<tr><td colSpan={2}>{resultMes}</td></tr>);
+                }
+                else if(score1 > score2){
+                    col1 = "green";
+                    const style = {backgroundColor:col1};
+                    trs.push(<tr><td style={style}>{resultMes}</td><td></td></tr>);
+                }
+                else{
+                    col2 = "green";
+                    const style = {backgroundColor:col2};
+                    trs.push(<tr><td></td><td style={style}>{resultMes}</td></tr>);
+                }
+
+                const table = <table border={1} style={{margin:"2vw", width:"90%", borderBottom: ".4vw solid gray"}}>{trs}</table>
+
+
+                renderDiv.push(table);
+
+            }
+
+        
+
+            // update mainOutput state
+            store.dispatch({payload: <div>{renderDiv}</div>, type:"footballAppStore/mainOutputState"});
+
+            // render mainOutput data
+            setoutputState(store.getState().mainOutput);
+
+            // summary rendering
+            setSummary(
+                <div>
+                    <b>{summaryIni}</b>
+                    <div>
+                        <table border={1}>
+                            <tr><th colSpan={3}>{summaryTeam1}</th></tr>
+                            <tr><td>Home</td><td>Away</td><td>Total</td></tr>
+                            <tr><td>{team1HomeVict}</td><td>{team1AwayVict}</td><td>{team1TotVict}</td></tr>
+
+                            <tr><th colSpan={3}>{summaryTeam2}</th></tr>
+                            <tr><td>Home</td><td>Away</td><td>Total</td></tr>
+                            <tr><td>{team2HomeVict}</td><td>{team2AwayVict}</td><td>{team2TotVict}</td></tr>
+                            <tr><td colSpan={3}>Total: {totalGames} | Draw: {drawGames}</td></tr>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+        
     })
 
     // while waiting the asynchronous function to process the data

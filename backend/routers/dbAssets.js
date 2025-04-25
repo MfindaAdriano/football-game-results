@@ -306,20 +306,100 @@ async function readFromDb(model, obj) {
 }
 
 async function playedGames(team1, team2, internOrDomestic, callback){
-    let ar = [];
+    
+    let club1, club2;
+    let id1, id2;
+    let competitionId, competitionName;
 
     // if it is a domestic game
     if(internOrDomestic){
-        ar = await InternationalResultModel.find({$and: 
+        let ar = [];
+
+        ar = await InternationalResultModel.find({$or:[
+            {$and: 
+                [
+                    {home_team:{$eq:team1}},
+                    {away_team:{$eq:team2}}
+                ]
+            },
+            {$and: 
+                [
+                    {home_team:{$eq:team2}},
+                    {away_team:{$eq:team1}}
+                ]
+            }
+        ]}).sort({date:1});
+
+        if(ar.length === 0 || !Array.isArray(ar)){
+            callback(null); return 0;
+        }
+        
+        //if(ar)
+            callback(ar);
+        //else{callback(null); return 0;}
+        
+
+    } // end of if it is an international game
+    else{// if it is a domestic game
+
+
+        club1 = await ClubModel.find({name:{$eq:team1}});
+        club2 = await ClubModel.find({name:{$eq:team2}});
+
+        id1 = club1[0]["club_id"];
+        id2 = club2[0]["club_id"]
+
+        //console.log(parseInt(club1[0]["club_id"]), "\n", parseInt(club2[0]["club_id"]));
+
+        let arGames = await GameModel.find({$or:[
+            {$and: 
+                [
+                    {home_club_id:{$eq:id1}},
+                    {away_club_id:{$eq:id2}}
+                ]
+            },
+            {$and: 
+                [
+                    {home_club_id:{$eq:id2}},
+                    {away_club_id:{$eq:id1}}
+                ]
+            }
+        ]}).sort({date:1});
+
+        if(arGames[0])
+            competitionId = arGames[0]["competition_id"];
+        else{callback(null); return 0;}
+    
+        let arCompetitions = await CompetitionModel.find({competition_id: {$eq:competitionId}});
+        competitionName = arCompetitions[0]["name"];
+        
+        let outArray = [];
+        outArray.push(arGames);
+        outArray.push(competitionName);
+
+        console.log(outArray);
+        callback(outArray)
+    }
+
+    
+    /*
+    let arCompetitions = await CompetitionModel.find({$or:[
+        {$and: 
             [
                 {home_team:{$eq:team1}},
                 {away_team:{$eq:team2}}
             ]
-        }).sort({date:1});
-        
-        callback(ar);
+        },
+        {$and: 
+            [
+                {home_team:{$eq:team2}},
+                {away_team:{$eq:team1}}
+            ]
+        }
+    ]}).sort({date:1});
 
-    } // end of if it is an international game
+    
+    */
     
 
 }
