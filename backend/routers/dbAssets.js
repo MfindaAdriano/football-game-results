@@ -305,7 +305,24 @@ async function readFromDb(model, obj) {
     return result;
 }
 
-async function playedGames(team1, team2, internOrDomestic, callback){}
+async function playedGames(team1, team2, internOrDomestic, callback){
+    let ar = [];
+
+    // if it is a domestic game
+    if(internOrDomestic){
+        ar = await InternationalResultModel.find({$and: 
+            [
+                {home_team:{$eq:team1}},
+                {away_team:{$eq:team2}}
+            ]
+        }).sort({date:1});
+        
+        callback(ar);
+
+    } // end of if it is an international game
+    
+
+}
 
 // add variables to the object to export
 const DbAssets = {playedGames, seedCollection, dbModels, openDb, csvToObject, writeObjToDb, readFromDb, segregateCountryFromDB, segregateClubFromDB};

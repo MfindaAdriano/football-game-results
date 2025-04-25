@@ -8,7 +8,7 @@ const globalSlice = createSlice({
         componentToOutput: "welcome",
         showHeader: true,
 
-        mainOutput: "This is the Main Output",
+        mainOutput: "",
     },
     reducers: {
         switchComponent: (state, action) => {

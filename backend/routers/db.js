@@ -68,9 +68,22 @@ router.get("/", (req, res) => {
 
 // search for games
 router.post("/playedgames", (req, res) => {
-    //playedGames();
-    console.log("Played game received a request:\n", JSON.parse(req.body));
-    res.json({nome: "Mfinda"});
+    const body = JSON.parse(req.body);
+
+    //console.log(body.team1, body.team2, body.internOrDomestic);
+
+    DbAssets.playedGames(body.team1, body.team2, body.internOrDomestic, (ar) =>{
+        //console.log("Played game received a request:\n", JSON.parse(ar));
+
+        //if(ar.length !== 0){
+            console.log(ar);
+            res.json(ar);
+            //res.json([{nome: "Mfinda, the Programmer"}]);
+        //}else{ar["No data Found, I am Sorry!"]}
+    })
+
+    
+    //res.json({nome: "Mfinda, the Programmer"});
 })
 // Domestic requests' routes
 router.get("/domestic/clubnames", async (req, res) => {

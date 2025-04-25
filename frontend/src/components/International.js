@@ -23,6 +23,7 @@ export default function International(props) {
     const [internOrDomestic, setInternOrDomestic] = useState(true);
     const [team11, setTeam1] = useState("");
     const [team22, setTeam2] = useState("");
+    const [summary, setSummary] = useState("");
 
     let team1, team2;
 
@@ -30,9 +31,13 @@ export default function International(props) {
     const CountrySelect2 = useRef();
     const CompetitionSelect = useRef();
     const searchBt = useRef();
+
+    const outputSummary = useRef();
+    const summaryIni = <div style={{textAlign:"center", borderBottom: "0.3vw solid yellow", width:"100%"}}>Sumary</div>
     
 
     useEffect(() => {
+        setSummary(summaryIni);
         //store.dispatch({payload:"Mudou", type:"footballAppStore/mainOutputState"});
         //searchBt.current.addEventListener("click", (event) => {alert("Hello Search Button");})
     }, []);
@@ -60,10 +65,7 @@ export default function International(props) {
             }
 
             
-            playedGames(team1, team2, internOrDomestic, (data) => {
-                alert(data.nome);
-            
-            });
+            playedGames(team1, team2, internOrDomestic, setMainOutput, setSummary, summaryIni); //(data) => { data.nome});
         
             //alert(team1 + "; " + team2);
             // do what you have to do with the name of the two selected team
@@ -72,6 +74,7 @@ export default function International(props) {
             alert("You did not select any team");
         }
     }
+    // end of searchGames() function
 
     const handleInternational = function(){
         //setDbURL("http://localhost:4500/dbs/international/countrynames");
@@ -126,6 +129,10 @@ export default function International(props) {
                 </select>
                 */}
             </nav>
+
+            <div ref={outputSummary} style={{backgroundColor:"gray", marginTop: "2vh", height:"50vh", display:"flex", flexDirection:"column", alignItems: "center", width:"100%"}}>
+                {summary}
+            </div>
             
         </div>
         

@@ -58,6 +58,9 @@ header>i{
 
 
 #data-output{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color:black;
     color: white;
     width: 75vw;

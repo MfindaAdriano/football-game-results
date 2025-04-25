@@ -80,27 +80,102 @@ function dbSeedString(dbURL, str){
 
 
 // function to check if the two selected team have played games
-async function playedGames (team1, team2, internOrDomestic, callback){
-    const url = "http://localhost:4500/dbs/playedgames";
+async function playedGames (team1, team2, internOrDomestic,setoutputState, setSummary, summaryIni){
 
-    let data = {
-        team1: team1,
-        team2: team2,
-        internOrDomestic,
-    };
+    function handleGames(callback){
+        const url = "http://localhost:4500/dbs/playedgames";
 
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-    })
-    .then(response => {
-        if(response.ok){
-            return response.json();
+        let data = {
+            team1: team1,
+            team2: team2,
+            internOrDomestic,
+        };
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+        })
+        .then(d => {
+            callback(d);
+        })
+    }
+
+    handleGames(data0 => {
+
+        //const data = JSON.stringify(data0);
+        const data = data0 //[0]["home_team"];
+
+        let renderDiv = [];
+        
+
+        for(const obj of data){
+            let trs = [];
+            const tournam = obj["tournament"];
+            const date = obj["date"];
+            const city = obj["city"];
+            const country = obj["country"];
+            const team1 = obj["home_team"];
+            const team2 = obj["away_team"];
+            const score1 = parseInt(obj["home_score"]);
+            const score2 = parseInt(obj["away_score"]);
+
+            let col1 = "white", col2 = "white";
+            let resultMes = "Wins";
+    
+            trs.push(<tr><td colSpan={2}>{tournam} | {date}</td></tr>);
+            trs.push(<tr><td colSpan={2}>{city} | {country}</td></tr>);
+            trs.push(<tr><td>{team1}</td><td>{team2}</td></tr>);
+            trs.push(<tr><td>{score1}</td><td>{score2}</td></tr>);
+
+            if(score1 === score2){
+                resultMes = "Draw Game";
+                trs.push(<tr><td colSpan={2}>{resultMes}</td></tr>);
+            }
+            else if(score1 > score2){
+                col1 = "green";
+                const style = {backgroundColor:col1};
+                trs.push(<tr><td style={style}>{resultMes}</td><td></td></tr>);
+            }
+            else{
+                col2 = "green";
+                const style = {backgroundColor:col2};
+                trs.push(<tr><td></td><td style={style}>{resultMes}</td></tr>);
+            }
+
+            const table = <table border={1} style={{margin:"2vw", width:"90%", borderBottom: ".4vw solid gray"}}>{trs}</table>
+
+            renderDiv.push(table);
+
         }
+
+       
+
+        // update mainOutput state
+        store.dispatch({payload: <div>{renderDiv}</div>, type:"footballAppStore/mainOutputState"});
+
+        // render mainOutput data
+        setoutputState(store.getState().mainOutput);
+
+        // summary rendering
+        setSummary(
+            <div>
+                {summaryIni}
+                <div>
+                    Hello there Summary
+                </div>
+            </div>
+        );
     })
-    .then(d => {
-        callback(d);
-    })
+
+    // while waiting the asynchronous function to process the data
+    store.dispatch({payload: "Getting Data from the Database ...", type:"footballAppStore/mainOutputState"});
+    setoutputState(store.getState().mainOutput);
+    
 }
 
 // to handle search starting with a selected country
