@@ -21,6 +21,10 @@ export default function International(props) {
     const [selectedCountry, setSelectedCountry] = useState([]);
     const [selectedClub, setSelectedClub] = useState([]);
     const [internOrDomestic, setInternOrDomestic] = useState(true);
+    const [team11, setTeam1] = useState("");
+    const [team22, setTeam2] = useState("");
+
+    let team1, team2;
 
     const CountrySelect1 = useRef();
     const CountrySelect2 = useRef();
@@ -37,9 +41,11 @@ export default function International(props) {
         let selectLength1 = CountrySelect1.current.options.length;
         let selectLength2 = CountrySelect2.current.options.length;
 
-        let ind1, ind2, team1, team2;
+        let ind1, ind2;
 
         if( selectLength1 !== 0 && selectLength2 !== 0){
+
+            //function handleTeamName(callback){
             ind1 = CountrySelect1.current.selectedIndex;
             ind2 = CountrySelect2.current.selectedIndex;
 
@@ -49,20 +55,21 @@ export default function International(props) {
                 team2 = selectedCountry[ind2];
 
             }else{ // if domestic games chosen
-                team1 = selectedCountry[ind1];
-                team2 = selectedCountry[ind2];
+                team1 = selectedClub[ind1];
+                team2 = selectedClub[ind2];
             }
 
-            // do what you have to do with the name of the two selected team
             
-            alert(team1 + "; " + team2);
-
+            playedGames(team1, team2, internOrDomestic, (data) => {
+                alert(data.nome);
+            
+            });
+        
+            //alert(team1 + "; " + team2);
+            // do what you have to do with the name of the two selected team
 
         }else{
-            playedGames("team1", "team2", internOrDomestic, (data) => {
-                alert(data.nome);
-            });
-            //alert("You did not select any team");
+            alert("You did not select any team");
         }
     }
 

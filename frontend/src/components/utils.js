@@ -83,7 +83,11 @@ function dbSeedString(dbURL, str){
 async function playedGames (team1, team2, internOrDomestic, callback){
     const url = "http://localhost:4500/dbs/playedgames";
 
-    let data = {progName: "Dalai Lama"};
+    let data = {
+        team1: team1,
+        team2: team2,
+        internOrDomestic,
+    };
 
     fetch(url, {
         method: "POST",
