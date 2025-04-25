@@ -3,10 +3,12 @@ import { createSlice, configureStore} from '@reduxjs/toolkit';
 //import thunk from "redux-thunk";
 
 const globalSlice = createSlice({
-    name: "component",
+    name: "footballAppStore",
     initialState:{
         componentToOutput: "welcome",
         showHeader: true,
+
+        mainOutput: "This is the Main Output",
     },
     reducers: {
         switchComponent: (state, action) => {
@@ -15,6 +17,10 @@ const globalSlice = createSlice({
         },
         showHeaderState: (state, action) => {
             state.showHeader = action.payload;
+        },
+
+        mainOutputState: (state, action) => {
+            state.mainOutput = action.payload;
         }
     }
 });
@@ -72,12 +78,12 @@ const store1 = configureStore({
 
 
 // function to update store states using two arguments, the store and the actionEvent for the state meant to update
-function updateStore(store:any, action:any) {
+function updateStore(store, action) {
     store.dispatch(action)
     //return action;
 }
 
-function updateGlobalState(store:any, reducerName:string, value:any){
+function updateGlobalState(store, reducerName, value){
     const action = {payload: value, type: reducerName};
     store.dispatch(action);
 }

@@ -8,16 +8,22 @@ import './css/router.css';
 // importing components
 import International from "./components/International";
 import Domestic from "./components/Domestic";
+import {store, updateStore, updateGlobalState} from './components/Stores';
 
 import Club from "./components/Club";
 import Competition from "./components/Competition";
 import Country from "./components/Country";
 
 let dataOutput;
+let mainOutput, setMainOutput;
 
 const App = (props) => {
+    [mainOutput, setMainOutput] = useState(store.getState().mainOutput);//useState("Hello Main Output");
+    //dataOutput = useRef();
 
-    dataOutput = useRef();
+    useEffect(() => {
+        setMainOutput(store.getState().mainOutput);
+    }, [store.getState().mainOutput]);
 
     return (
         <div id="App">
@@ -31,32 +37,27 @@ const App = (props) => {
                         <div id="left-side-nav">
                             <nav id="intern-domesticos">
                                 <ul>
-                                    <li><Link to="/" >International</Link> </li>
-                                    <li><Link to="/domestic">Domésticos</Link> </li>
+                                    <li><Link to="/" ></Link> </li>
+                                    <li><Link to="/domestic"></Link> </li>
                                     
 
                 
                                 </ul>
+
+                                {/**/}
                                 <div id="nav-ouput">
                                     <Routes>
                                         <Route index  element={<International />} />
                                         <Route path="/" element={<International />} />
                                         <Route path="/domestic" element={<Domestic />} />
-                                        {
-                                        /*
-                                        <Route path="/club" element ={<Club />} />
-                                        <Route path="/competition" element ={<Competition />} />
-                                        <Route path="/country" element ={<Country />} />
-                                        <Route path="/aboutus" element={<Aboutus />} />
-                                        <Route path="/contacts" element={<Contacts />} />
-                                        */}
-                                    </Routes>
-                                    
+                                    </Routes>   
                                 </div>
+                                
+
                             </nav>
                             
                         </div>
-                        <div id="data-output" ref={dataOutput}></div>
+                        <div id="data-output">{mainOutput/*store.getState().mainOutput*/}</div>
                     </div>
                     
 
@@ -88,5 +89,5 @@ const App = (props) => {
     )
 }
 
-export {dataOutput};
+export {setMainOutput, dataOutput};
 export default App;

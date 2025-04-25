@@ -39,8 +39,9 @@ header>i{
     display: flex;
     flex-direction: column;
     background-color: rgb(58, 55, 55);
-    width: 90%;
-    height: 100%;
+    width: 85%;
+    height: 95%;
+    padding: 5px;
 }
 
 #intern-domesticos > ul{
@@ -75,11 +76,11 @@ ul {
 }
 
 li{
-    background-color: transparent;
+    background-color: navy;
     color: white;
 }
 li:hover{
-    border: 1px solid white;
+    border: 1px solid yellow;
     cursor:pointer;
 }
 
