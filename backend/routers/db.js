@@ -66,9 +66,28 @@ router.get("/", (req, res) => {
     console.log("Hello db Router!");
 });
 
-router.get("/international", async (req, res) => {
+// search for games
+router.post("/playedgames", (req, res) => {
+    //playedGames();
+    console.log("Played game received a request:\n", JSON.parse(req.body));
+    res.json({nome: "Mfinda"});
+})
+// Domestic requests' routes
+router.get("/domestic/clubnames", async (req, res) => {
+    DbAssets.segregateClubFromDB(DbAssets.dbModels.ClubModel, "name", (arr) => {
+        console.log(arr);
+        res.json(arr);
+    });
+    //console.log("Clubs names request");
+    //res.json({text: "Domestics Clubs Names from the Server", count: 1234});
+})
+// End of Domestic requests' routes
+
+
+// Internation requests' routes 
+router.get("/international/countrynames", async (req, res) => {
    //const dbResult = await DbAssets.readFromDb(DbAssets.dbModels.InternationalResultModel, {home_team: 'italy'});
-   DbAssets.segregateDataFromDB(DbAssets.dbModels.InternationalResultModel, "home_team", "away_team", "tournament", (arr) => {
+   DbAssets.segregateCountryFromDB(DbAssets.dbModels.InternationalResultModel, "home_team", "away_team", "tournament", (arr) => {
         console.log(arr);
         res.json(arr); 
     })
@@ -83,7 +102,9 @@ router.post("/international", (req, res) => {
 
     //const playerSchema = new mongoose.Schema(JSON.parse(req.body));
     //const playerModel = mongoose.model("players", playerSchema);
-})
+});
+
+// End of Internation requests' routes 
 
 
 module.exports = router;

@@ -220,7 +220,8 @@ async function readAllFromDb(model) {
 }
 // end readAllFromDb() function
 
-async function segregateDataFromDB(model, country1, country2, tournament, callback){
+// segregate country after getting countries obj from DB
+async function segregateCountryFromDB(model, country1, country2, tournament, callback){
     const data = await readAllFromDb(model);
 
     let homeCountry = [];
@@ -250,6 +251,41 @@ async function segregateDataFromDB(model, country1, country2, tournament, callba
     
 
 }
+// End of segregate country after getting countries obj from DB
+
+// segregate club after getting clubs obj from DB
+async function segregateClubFromDB(model, clubNameKey, callback){
+    const data = await readAllFromDb(model);
+
+    let clubs = [];
+    //let awayCountry = [];
+    //let tournam = [];
+
+    //let outAr = [];
+    function segregate(data){
+
+        for(ob of data){
+            //if(outAr.indexOf(ob[key])=== -1){outAr.push(ob[key]);}
+            if(clubs.indexOf(ob[clubNameKey])=== -1){clubs.push(ob[clubNameKey]);}
+
+            //if(awayCountry.indexOf(ob[country2])=== -1){awayCountry.push(ob[country2]);}
+
+            //if(tournam.indexOf(ob[tournament])=== -1){tournam.push(ob[tournament]);}
+        }
+        
+        //outAr.push(homeCountry.sort());
+        //outAr.push(awayCountry.sort());
+        //outAr.push(tournam.sort());
+
+        //callback(outAr);
+        callback(clubs);
+    }
+
+    segregate(data)
+    
+
+}
+// End of segregate club after getting clubs obj from DB
 
 async function readFromDb(model, obj) {
     const key = Object.keys(obj)[0]; // get the key
@@ -269,8 +305,10 @@ async function readFromDb(model, obj) {
     return result;
 }
 
+async function playedGames(team1, team2, internOrDomestic, callback){}
+
 // add variables to the object to export
-const DbAssets = {seedCollection, dbModels, openDb, csvToObject, writeObjToDb, readFromDb, segregateDataFromDB};
+const DbAssets = {playedGames, seedCollection, dbModels, openDb, csvToObject, writeObjToDb, readFromDb, segregateCountryFromDB, segregateClubFromDB};
 
 // export DB Object containing all the db assets
 module.exports = DbAssets;

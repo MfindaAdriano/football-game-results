@@ -5,7 +5,7 @@ import "../css/router.css";
 
 import InternationalClub from './InternationalClub';
 import {setMainOutput, dataOutput} from '../App';
-import {handleSelectedCountries, handleSelectedClubs, handleSelectedCompetition,dbSeedData, pickCsvFile, csvToObject} from './utils';
+import {playedGames, handleSelectedCountries, handleSelectedClubs, handleSelectedCompetition,dbSeedData, pickCsvFile, csvToObject} from './utils';
 import {store, updateStore, updateGlobalState} from './Stores';
 
 export default function International(props) {
@@ -17,7 +17,10 @@ export default function International(props) {
     const [selectionTitle, setSelectionTitle] = useState();
     const [objecto1, setObjecto1] = useState([]); //useState([<option>Angola</option>]);
     const [objecto2, setObjecto2] = useState([]);//useState([<option>Girabola</option>]);
-    const [competObject, setCompetObject] = useState([]);
+    //const [competObject, setCompetObject] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState([]);
+    const [selectedClub, setSelectedClub] = useState([]);
+    const [internOrDomestic, setInternOrDomestic] = useState(true);
 
     const CountrySelect1 = useRef();
     const CountrySelect2 = useRef();
@@ -27,14 +30,50 @@ export default function International(props) {
 
     useEffect(() => {
         //store.dispatch({payload:"Mudou", type:"footballAppStore/mainOutputState"});
+        //searchBt.current.addEventListener("click", (event) => {alert("Hello Search Button");})
     }, []);
+
+    const searchGames = () => {
+        let selectLength1 = CountrySelect1.current.options.length;
+        let selectLength2 = CountrySelect2.current.options.length;
+
+        let ind1, ind2, team1, team2;
+
+        if( selectLength1 !== 0 && selectLength2 !== 0){
+            ind1 = CountrySelect1.current.selectedIndex;
+            ind2 = CountrySelect2.current.selectedIndex;
+
+            //if international games are chosen
+            if(internOrDomestic){
+                team1 = selectedCountry[ind1];
+                team2 = selectedCountry[ind2];
+
+            }else{ // if domestic games chosen
+                team1 = selectedCountry[ind1];
+                team2 = selectedCountry[ind2];
+            }
+
+            // do what you have to do with the name of the two selected team
+            
+            alert(team1 + "; " + team2);
+
+
+        }else{
+            playedGames("team1", "team2", internOrDomestic, (data) => {
+                alert(data.nome);
+            });
+            //alert("You did not select any team");
+        }
+    }
 
     const handleInternational = function(){
         //setDbURL("http://localhost:4500/dbs/international/countrynames");
         const dbURL = "http://localhost:4500/dbs/international/countrynames";
         const titleText = "Select the two Countries";
         
-        handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setMainOutput);
+        handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setMainOutput, setSelectedCountry);
+
+        setInternOrDomestic(true);
     }
 
     function handleDomestic () {
@@ -43,9 +82,9 @@ export default function International(props) {
         const dbURL = "http://localhost:4500/dbs/domestic/clubnames";
         const titleText = "Select the two Clubs";
         
-        handleSelectedClubs(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setMainOutput);
+        handleSelectedClubs(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setMainOutput, setSelectedClub);
 
-
+        setInternOrDomestic(false);
         //handleSelectedCompetition(dbURL, setObjecto1, setObjecto2);
         
         //store.dispatch({payload:"Mfinda, you clicked it", type:"footballAppStore/mainOutputState"});
@@ -62,7 +101,7 @@ export default function International(props) {
             <div style={{color:"white", backgroundColor: "navy", textAlign:"center"}}>{selectionTitle}</div>
 
         
-            <button ref={searchBt}>Search</button>
+            <button ref={searchBt} onClick={searchGames}>Search</button>
             
             <nav id="output">
                 <select ref={CountrySelect1}>

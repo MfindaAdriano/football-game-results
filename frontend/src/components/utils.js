@@ -78,8 +78,29 @@ function dbSeedString(dbURL, str){
     
 }
 
+
+// function to check if the two selected team have played games
+async function playedGames (team1, team2, internOrDomestic, callback){
+    const url = "http://localhost:4500/dbs/playedgames";
+
+    let data = {progName: "Dalai Lama"};
+
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if(response.ok){
+            return response.json();
+        }
+    })
+    .then(d => {
+        callback(d);
+    })
+}
+
 // to handle search starting with a selected country
-function handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setoutputState){
+function handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setoutputState, setSelectedCountry){
     // while waiting the asynchronous function to process the data
     store.dispatch({payload: "Getting Data from the Database ...", type:"footballAppStore/mainOutputState"});
     setoutputState(store.getState().mainOutput);
@@ -94,21 +115,45 @@ function handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTi
     .then(data=> {
         //cont.innerHTML = data[0][0] +  " " + data[0][0];
 
+        
+
         // Main output Container Config and output
-        store.dispatch({payload: data[0][0] +  " " + data[0][0], type:"footballAppStore/mainOutputState"});
+        //store.dispatch({payload: data[0][0] +  " " + data[0][0], type:"footballAppStore/mainOutputState"});
+        //setoutputState(store.getState().mainOutput);
+
+        let JSX1 = [];
+        let JSX2 = [];
+
+        let lis = [];
+        let dataArr = data[0];
+
+        setSelectedCountry(dataArr);
+        
+        for (let i = 0; i <dataArr.length; i++){
+            lis.push(<li style={{backgroundColor:"transparent"}}>{dataArr[i]}</li>);
+            JSX1.push(<option>{dataArr[i]}</option>);
+            JSX2.push(<option>{dataArr[i]}</option>);
+        }
+
+        let outData = <ol style={{color:"yellow", backgroundColor:"transparent", fontSize: "3vw"}}> {lis} </ol>;
+
+        store.dispatch({payload: outData, type:"footballAppStore/mainOutputState"});
+
         setoutputState(store.getState().mainOutput);
+        
         // End of Main output Container Config and output
 
         setSelectionTitle(titleText);
 
-        let JSX1 = [];
-        let JSX2 = [];
+        //let JSX1 = [];
+        //let JSX2 = [];
         //let JSX3 = [];
         
 
         //select1.current.options.length = 0;
         //select2.current.options.length = 0;
 
+        /*
         //for(const obj of data[0]){
         for(let ind = 0; ind < data[0].length; ind++){    
             JSX1.push(<option>{data[0][ind]}</option>);
@@ -116,7 +161,7 @@ function handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTi
             //JSX3.push(<option>{data[2][ind]}</option>);
                         
         }
-
+        */
 
         setObjecto1(JSX1);
         setObjecto2(JSX2);
@@ -131,7 +176,7 @@ function handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTi
 // end of handleSelectedCountries() function
 
 // to handle search starting with a selected clubs
-function handleSelectedClubs(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setoutputState){
+function handleSelectedClubs(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setoutputState, setSelectedClub){
     // while waiting the asynchronous function to process the data
     store.dispatch({payload: "Getting Data from the Database ...", type:"footballAppStore/mainOutputState"});
     setoutputState(store.getState().mainOutput);
@@ -145,17 +190,19 @@ function handleSelectedClubs(dbURL, setObjecto1, setObjecto2, setSelectionTitle,
     })
     .then(data0 => {
         const data = data0.sort();
+        setSelectedClub(data);
+
         let JSX1 = [];
         let JSX2 = [];
 
         let lis = [];
         for (let i = 0; i <data.length; i++){
-            lis.push(<li>{data[i]}</li>);
+            lis.push(<li style={{backgroundColor:"transparent"}}>{data[i]}</li>);
             JSX1.push(<option>{data[i]}</option>);
             JSX2.push(<option>{data[i]}</option>);
         }
 
-        let outData = <ol style={{color:"yellow", backgroundColor:"navy", fontSize: 10}}> {lis} </ol>;
+        let outData = <ol style={{color:"yellow", backgroundColor:"transparent", fontSize:"3vw"}}> {lis} </ol>;
 
         setObjecto1(JSX1);
         setObjecto2(JSX2);
@@ -205,4 +252,4 @@ function handleSelectedCompetition(dbURL, setObjecto1, setObjecto2){
     //alert(select1.current.options[select1.current.selectedIndex].value);
 }
 
-export {handleSelectedCountries, handleSelectedClubs, handleSelectedCompetition, dbSeedData, pickCsvFile, csvToObject};
+export {playedGames, handleSelectedCountries, handleSelectedClubs, handleSelectedCompetition, dbSeedData, pickCsvFile, csvToObject};
