@@ -83,7 +83,7 @@ function dbSeedString(dbURL, str){
 async function playedGames (team1, team2, internOrDomestic,setoutputState, setSummary, summaryIni){
 
     if(team1 === team2){
-        store.dispatch({payload: <h2 style={{color:"yellow", marginLeft:"2vw"}}>You must choose two different teams</h2>, type:"footballAppStore/mainOutputState"});
+        store.dispatch({payload: <h2 style={{color:"yellow", marginLeft:"2vw"}}>You must chose two different teams</h2>, type:"footballAppStore/mainOutputState"});
             setoutputState(store.getState().mainOutput);
 
             return 0;
