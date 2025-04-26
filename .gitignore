@@ -1,0 +1,11 @@
+#ignore node_modules folder
+/node_modules
+
+#ignore package.json and pnpm-lock.yaml
+package.json
+pnpm-lock.yaml
+
+# ignore frontend folders and file
+/frontend/node_modules
+/frontend/package-lock.json
+/frontend/package.json
