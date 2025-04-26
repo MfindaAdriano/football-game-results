@@ -100,13 +100,13 @@ app.post("/keys", (req, res) => {
 })
 
 
-app.get("/", (request, response) => {
+app.get("/", (req, res) => {
     console.log("Hello Universe, from Mfinda");
-    response.json({country:"PSG", competition: "deFrance"});
+    //response.json({country:"PSG", competition: "deFrance"});
+    res.redirect(process.env.clientURL);
+
 })
 
-app.post("/", (req, res) => {
-    console.log("Hello post /")
-})
+//app.post("/", (req, res) => {console.log("Hello post /")})
 
 

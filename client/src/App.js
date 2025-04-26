@@ -12,6 +12,7 @@ import {store, updateStore, updateGlobalState} from './components/Stores';
 
 let dataOutput;
 let mainOutput, setMainOutput;
+const serverURL = "http://localhost:4500";
 
 const App = (props) => {
     [mainOutput, setMainOutput] = useState(store.getState().mainOutput);//useState("Hello Main Output");
@@ -84,5 +85,5 @@ const App = (props) => {
     )
 }
 
-export {setMainOutput, dataOutput};
+export {setMainOutput, dataOutput, serverURL};
 export default App;

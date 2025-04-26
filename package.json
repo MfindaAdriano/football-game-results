@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "fullstack": "concurrently \"npm run react\" \"npm run start\" ",
-    "react": "cd frontend && pnpm start",
-    "start": "cd backend && node --watch index.js",
+    "react": "cd client && pnpm start",
+    "start": "cd server && node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

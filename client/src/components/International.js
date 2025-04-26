@@ -3,13 +3,13 @@ import {useState, useEffect, useRef} from 'react';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import "../css/router.css";
 
-import {setMainOutput, dataOutput} from '../App';
+import {serverURL, setMainOutput, dataOutput} from '../App';
 import {playedGames, handleSelectedCountries, handleSelectedClubs, handleSelectedCompetition,dbSeedData, pickCsvFile, csvToObject} from './utils';
 import {store, updateStore, updateGlobalState} from './Stores';
 
 export default function International(props) {
     const [InternationNav, setInternationNav] = useState({});
-    const [dbURL, setDbURL] = useState("http://localhost:4500/dbs/international/countrynames"); //useState("http://localhost:4500/keys");
+    const [dbURL, setDbURL] = useState(`${serverURL}/dbs/international/countrynames`); //useState("http://localhost:4500/keys");
     
     //const dbURL = "http://localhost:4500/dbs/international";
     
@@ -77,7 +77,7 @@ export default function International(props) {
 
     const handleInternational = function(){
         //setDbURL("http://localhost:4500/dbs/international/countrynames");
-        const dbURL = "http://localhost:4500/dbs/international/countrynames";
+        const dbURL = `${serverURL}/dbs/international/countrynames`;
         const titleText = "Select the two Countries";
         
         handleSelectedCountries(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setMainOutput, setSelectedCountry);
@@ -88,7 +88,7 @@ export default function International(props) {
     function handleDomestic () {
         //alert("Hello Domestic");
         //setDbURL("http://localhost:4500/dbs/domestic/clubnames");
-        const dbURL = "http://localhost:4500/dbs/domestic/clubnames";
+        const dbURL = `${serverURL}/dbs/domestic/clubnames`;
         const titleText = "Select the two Clubs";
         
         handleSelectedClubs(dbURL, setObjecto1, setObjecto2, setSelectionTitle, titleText, setMainOutput, setSelectedClub);

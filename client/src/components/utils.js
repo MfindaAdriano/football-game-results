@@ -1,4 +1,5 @@
 import {store, updateStore, updateGlobalState} from './Stores';
+import {serverURL} from '../App';
 
 // function to convert csv file to object
 function csvToObject(fileString, callback){
@@ -90,7 +91,7 @@ async function playedGames (team1, team2, internOrDomestic,setoutputState, setSu
     }
 
     function handleGames(callback){
-        const url = "http://localhost:4500/dbs/playedgames";
+        const url = `${serverURL}/dbs/playedgames`;
 
         let data = {
             team1: team1,
