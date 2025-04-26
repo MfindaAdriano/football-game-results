@@ -2,13 +2,17 @@ const express = require("express");
 const {Server} = require("socket.io");
 const http = require("http");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const {ApolloServer, gql} = require('apollo-server-express');
 
 const dbRouter = require('./routers/db.js');
 
-
+// app port
 const port = process.env.PORT || 4500;
+
+//static folde
+const staticFolder = path.join(__dirname, "../client/build");
 
 // create  express app
 const app = express();
@@ -54,7 +58,7 @@ async function startApolloServer(typeDefs, resolvers){
 
     // Apply the Apollo GraphQL middleware and set the path to /dbs/api
     apolloServer.applyMiddleware({app, path: '/api'});
-    app.listen(port, () => console.log(`Apollo Server at http://localhost:${port}${apolloServer.graphqlPath}`));
+    app.listen(port, () => console.log(`Apollo Server at ${process.env.serverURL}/${apolloServer.graphqlPath}`));
 }
 
 startApolloServer(typeDefs, resolvers);
@@ -63,10 +67,12 @@ startApolloServer(typeDefs, resolvers);
 
 server.listen(port, () => console.log(`The Server is listen at port ${port}`));
 
+// set express app staticFolder
+app.use(express.static(staticFolder));
 
 // middleware
 app.use("/", (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Origin", process.env.clientURL);
 
     next();
 })
@@ -102,8 +108,12 @@ app.post("/keys", (req, res) => {
 
 app.get("/", (req, res) => {
     console.log("Hello Universe, from Mfinda");
-    //response.json({country:"PSG", competition: "deFrance"});
-    res.redirect(process.env.clientURL);
+    
+    // redirect para react app server
+    //res.redirect(process.env.clientURL);
+
+    //open static reactRootFolder/build/index.html file instead
+    res.sendFile(path.join(staticFolder, "index.html"));
 
 })
 

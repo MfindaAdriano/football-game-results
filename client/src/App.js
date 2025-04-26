@@ -12,10 +12,12 @@ import {store, updateStore, updateGlobalState} from './components/Stores';
 
 let dataOutput;
 let mainOutput, setMainOutput;
+let extraOutput,  setExtraOutput;
 const serverURL = "http://localhost:4500";
 
 const App = (props) => {
     [mainOutput, setMainOutput] = useState(store.getState().mainOutput);//useState("Hello Main Output");
+    [extraOutput,  setExtraOutput] = useState("");
     //dataOutput = useRef();
 
     useEffect(() => {
@@ -53,7 +55,11 @@ const App = (props) => {
                             </nav>
                             
                         </div>
-                        <div id="data-output">{mainOutput/*store.getState().mainOutput*/}</div>
+                        <div id="data-extra-output">
+                            <div id="data-output">{mainOutput/*store.getState().mainOutput*/}</div>
+                            <div id="extra-output">{extraOutput}</div>
+                        </div>
+                        
                     </div>
                     
 
@@ -85,5 +91,5 @@ const App = (props) => {
     )
 }
 
-export {setMainOutput, dataOutput, serverURL};
+export {setMainOutput, setExtraOutput, dataOutput, serverURL};
 export default App;

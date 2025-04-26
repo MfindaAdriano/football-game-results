@@ -244,7 +244,8 @@ async function segregateCountryFromDB(model, country1, country2, tournament, cal
         outAr.push(awayCountry.sort());
         outAr.push(tournam.sort());
 
-        callback(outAr);
+        callback([outAr, data]);// outAr: Array of countries
+        //data: Array of objects in the international database
     }
 
     segregate(data)
@@ -278,7 +279,7 @@ async function segregateClubFromDB(model, clubNameKey, callback){
         //outAr.push(tournam.sort());
 
         //callback(outAr);
-        callback(clubs);
+        callback([clubs, data]);
     }
 
     segregate(data)

@@ -108,7 +108,7 @@ router.get("/domestic/clubnames", async (req, res) => {
 router.get("/international/countrynames", async (req, res) => {
    //const dbResult = await DbAssets.readFromDb(DbAssets.dbModels.InternationalResultModel, {home_team: 'italy'});
    DbAssets.segregateCountryFromDB(DbAssets.dbModels.InternationalResultModel, "home_team", "away_team", "tournament", (arr) => {
-        console.log(arr);
+        //console.log(arr);
         res.json(arr); 
     })
    //res.json(dbResult); 

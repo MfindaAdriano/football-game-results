@@ -56,16 +56,32 @@ header>i{
     height: 300px;
 }
 
-
+#data-extra-output{
+    display:flex;
+    width: 75vw;
+    height: 85vh;
+}
 #data-output{
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color:black;
     color: white;
-    width: 75vw;
-    height: 85vh;
     overflow: auto;
+    width: 60%;
+    height: 100%;
+}
+#extra-output{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content:center;
+    width: 40%;
+    height: 100%;
+    background-color: black;
+    color: rgb(222, 222, 132);
+    border-left: .2vw solid gray;
 }
 
 ul {
