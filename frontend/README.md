@@ -6,7 +6,7 @@ The application has a database in which data related to games results between th
 *  
 
 ##  Demo  
-[Live Demo](http://localhost:3000) | [Video Walkthrough](#)  
+[Live Demo](http://localhost:3000   ) | [Video Walkthrough](appVideo.mp4)  
 
 ## Preview  
 ![Demo GIF](./demo.png)  
