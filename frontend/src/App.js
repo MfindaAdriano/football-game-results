@@ -7,12 +7,8 @@ import './css/router.css';
 
 // importing components
 import International from "./components/International";
-import Domestic from "./components/Domestic";
 import {store, updateStore, updateGlobalState} from './components/Stores';
 
-import Club from "./components/Club";
-import Competition from "./components/Competition";
-import Country from "./components/Country";
 
 let dataOutput;
 let mainOutput, setMainOutput;
@@ -49,7 +45,6 @@ const App = (props) => {
                                     <Routes>
                                         <Route index  element={<International />} />
                                         <Route path="/" element={<International />} />
-                                        <Route path="/domestic" element={<Domestic />} />
                                     </Routes>   
                                 </div>
                                 

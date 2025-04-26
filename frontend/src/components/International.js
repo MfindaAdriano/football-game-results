@@ -3,7 +3,6 @@ import {useState, useEffect, useRef} from 'react';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import "../css/router.css";
 
-import InternationalClub from './InternationalClub';
 import {setMainOutput, dataOutput} from '../App';
 import {playedGames, handleSelectedCountries, handleSelectedClubs, handleSelectedCompetition,dbSeedData, pickCsvFile, csvToObject} from './utils';
 import {store, updateStore, updateGlobalState} from './Stores';
