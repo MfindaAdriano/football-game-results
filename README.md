@@ -49,9 +49,14 @@ or use concurrently module to start both at once:
 Description of the role of the above command
 - 1. To clone repo containing the project
 - 2. To install the dependencies, or package (modules ) defined in package.json file
-- 3. to start reactJS frontend server 
-- 4. to start backend nodeJS/Express Server
+- 3. to start reactJS frontend server (http://locahost:3000)
+- 4. to start backend nodeJS/Express Server (http://locahost:4500)
 - 34. to start concurrently both frontend and backend servers
+
+Deployment
+The frontend app must be build before deployment using
+
+> pnpm build
 
 ## Future Improvements  
 - update the database in order to have more games' results available
