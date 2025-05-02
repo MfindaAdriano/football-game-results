@@ -6,8 +6,8 @@
   "scripts": {
     "fullstack": "concurrently \"npm run react\" \"npm run start\" ",
     "react": "cd client && pnpm start",
-    "install-client": "cd client && npm install",
-    "build-client": "cd client && npm run build",
+    "install-client": "cd client && pnpm install",
+    "build-client": "cd client && pnpm run build",
     "start": "cd server && node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
