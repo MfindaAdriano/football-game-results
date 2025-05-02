@@ -53,7 +53,7 @@ To start concurrently both frontend(react) and backend(nodeJS) servers:
 The frontend app must be build before deployment using
 > pnpm build
 
-As far as deployment is concerned, I plan to deploy the application, for testing purpose, to Render.com so that I can implement both frontend and backend.
+As far as deployment is concerned, I plan to deploy the application, for testing purpose, to Render.com so that I can implement both frontend and backend, and add the application to my portfolio project application (https://mfindaadriano-portfolio.vercel.app) as one of my projects.
 
 ## Future Improvements  
 - update the database in order to have more games' results available
