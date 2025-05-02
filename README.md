@@ -4,6 +4,7 @@ This application was developed with the final objective of finding all the resul
 
 The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
 The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
+The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
 *  
 
 ##  Dev environment Demo  
