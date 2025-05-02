@@ -3,10 +3,11 @@
 This application was developed with the final objective of finding all the results from football(soccer) matches between two selected teams based on data stored in our database, and from these results, one can have a clue about which one of these teams has more probability to win a future match.
 
 The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
+The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
 *  
 
 ##  Dev environment Demo  
-[Live Demo](http://localhost:3000   ) | [Video Walkthrough](./appVideo.mp4)  
+[Live Demo](http://localhost:3000) | [Video Walkthrough](./appVideo.mp4)   
 
 ## Preview  
 ![Demo GIF](./demo.png)  
