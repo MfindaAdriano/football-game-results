@@ -11,8 +11,10 @@ const dbRouter = require('./routers/db.js');
 // app port
 const port = process.env.PORT || 4500;
 
-//static folde
-const staticFolder = path.join(__dirname, "../client/build");
+//static folder
+const buildFolder = process.env.build;
+
+//const staticFolder = path.join(__dirname, buildFolder);
 
 // create  express app
 const app = express();
@@ -68,7 +70,7 @@ startApolloServer(typeDefs, resolvers);
 server.listen(port, () => console.log(`The Server is listen at port ${port}`));
 
 // set express app staticFolder
-app.use(express.static(staticFolder));
+app.use(express.static(buildFolder));
 
 // middleware
 app.use("/", (req, res, next) => {
@@ -113,7 +115,7 @@ app.get("/", (req, res) => {
     //res.redirect(process.env.clientURL);
 
     //open static reactRootFolder/build/index.html file instead
-    res.sendFile(path.join(staticFolder, "index.html"));
+    res.sendFile(path.join(buildFolder, "index.html"));
 
 })
 
