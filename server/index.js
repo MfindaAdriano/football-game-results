@@ -12,9 +12,13 @@ const dbRouter = require('./routers/db.js');
 const port = process.env.PORT || 4500;
 
 //static folder
+<<<<<<< HEAD
 const buildFolder = process.env.build;
 
 //const staticFolder = path.join(__dirname, buildFolder);
+=======
+const staticFolder = path.join(__dirname, "../client/build");
+>>>>>>> 5532ad079302cd8864fea445e071a7a53cf5b4db
 
 // create  express app
 const app = express();
