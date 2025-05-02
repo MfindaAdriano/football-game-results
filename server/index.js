@@ -14,8 +14,6 @@ const port = process.env.PORT || 4500;
 //static folder
 const buildFolder = process.env.build;
 
-//const staticFolder = path.join(__dirname, buildFolder);
-
 // create  express app
 const app = express();
 //create http server passing the express app
