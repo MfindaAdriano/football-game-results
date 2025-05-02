@@ -84,7 +84,7 @@ function dbSeedString(dbURL, str){
 async function playedGames (team1, team2, internOrDomestic,setoutputState, setSummary, summaryIni){
 
     if(team1 === team2){
-        store.dispatch({payload: <h2 style={{color:"yellow", marginLeft:"2vw"}}>You must chose two different teams</h2>, type:"footballAppStore/mainOutputState"});
+        store.dispatch({payload: <h2 style={{color:"yellow", marginLeft:"2vw"}}>You must select two different teams</h2>, type:"footballAppStore/mainOutputState"});
             setoutputState(store.getState().mainOutput);
 
             return 0;
@@ -118,7 +118,7 @@ async function playedGames (team1, team2, internOrDomestic,setoutputState, setSu
         // if the data does not exist 
         if(!Array.isArray(data0)){
             // Output message in case we find nothing in the database
-            store.dispatch({payload: <h2 style={{color:"red", marginLeft:"2vw"}}>Sorry, we found no game records between the two team names!</h2>, type:"footballAppStore/mainOutputState"});
+            store.dispatch({payload: <h2 style={{color:"red", marginLeft:"2vw"}}>Sorry, we found no game records between the two selected teams!</h2>, type:"footballAppStore/mainOutputState"});
             setoutputState(store.getState().mainOutput);
 
             return 0;
