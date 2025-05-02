@@ -4,6 +4,7 @@ This application was developed with the final objective of finding all the resul
 
 The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
 The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
+The application has a database in which data related to games results between the two teams can be found, and these results are analysed and processed by the algorithm to try and determine which one of the two football teams has more probability to win a future game.
 *  
 
 ##  Dev environment Demo  
@@ -25,39 +26,34 @@ MongoDB was the elected database technology for the present project since this t
 
 ## Features   
 You can ask the application to suggest you which one of the two football team has more chance to win the game by chosing between:
-    * International Competitions: where you can chose either the names of the two country disputing the game (e.g. France / Italy) and this will automatically select the International competition in which we find this two teams.
+- International Competitions: where you can chose either the names of the two country disputing the game (e.g. France / Italy) and this will automatically select the International competition in which we find this two teams.
 
-    *or by selecting the name of an International Competition and the application tells which countries belong to this Competition. 
+- or by selecting the name of an International Competition and the application tells which countries belong to this Competition. 
 
 ## Installation 
  You can clone this project using the following command (assuming that you already have git installed in your computer)
 
 1. git clone https://github.com/mfindaadriano/football-game-results.git  
 
-To test the application in dev. environment, first install the dependencies using:
-1. git clone
-2. pnpm install 
+To test the application in dev. environment, first clone the project repository, then install the dependencies using:
+> git clone
+> pnpm install 
 
-then use either:
-3. pnpm run react
-4. pnpm run start
+to start reactJS frontend server (http://locahost:3000):
+> pnpm run react
 
-or use concurrently module to start both at once:
-34. pnpm run fullstack
+to start backend nodeJS/Express Server (http://locahost:4500):
+> pnpm run start
+
+To start concurrently both frontend(react) and backend(nodeJS) servers:
+> pnpm run fullstack
 (which uses concurrently module)
 
-
-Description of the role of the above command
-- 1. To clone repo containing the project
-- 2. To install the dependencies, or package (modules ) defined in package.json file
-- 3. to start reactJS frontend server (http://locahost:3000)
-- 4. to start backend nodeJS/Express Server (http://locahost:4500)
-- 34. to start concurrently both frontend(react) and backend(nodeJS) servers
-
-Deployment
+## Deployment
 The frontend app must be build before deployment using
-
 > pnpm build
+
+As far as deployment is concerned, I plan to deploy the application, for testing purpose, to Render.com so that I can implement both frontend and backend.
 
 ## Future Improvements  
 - update the database in order to have more games' results available
