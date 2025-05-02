@@ -51,7 +51,7 @@ Description of the role of the above command
 - 2. To install the dependencies, or package (modules ) defined in package.json file
 - 3. to start reactJS frontend server (http://locahost:3000)
 - 4. to start backend nodeJS/Express Server (http://locahost:4500)
-- 34. to start concurrently both frontend and backend servers
+- 34. to start concurrently both frontend(react) and backend(nodeJS) servers
 
 Deployment
 The frontend app must be build before deployment using
