@@ -11,7 +11,7 @@ const dbRouter = require('./routers/db.js');
 // app port
 const port = process.env.PORT || 4500;
 
-//static folde
+//static folder
 const staticFolder = path.join(__dirname, "../client/build");
 
 // create  express app
