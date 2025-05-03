@@ -6,6 +6,6 @@ package.json
 pnpm-lock.yaml
 
 # ignore frontend folders and file
-/frontend/node_modules
-/frontend/package-lock.json
-/frontend/package.json
+/client/node_modules
+/client/package-lock.json
+/client/package.json
