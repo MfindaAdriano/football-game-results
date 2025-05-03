@@ -14,7 +14,7 @@ let dataOutput;
 let mainOutput, setMainOutput;
 let extraOutput,  setExtraOutput;
 //const serverURL = "http://localhost:4500";
-const serverURL = "https://football-game-results.onrender.com";
+const serverURL = "https://footballgameresults.onrender.com";
 
 const App = (props) => {
     [mainOutput, setMainOutput] = useState(store.getState().mainOutput);//useState("Hello Main Output");
