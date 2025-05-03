@@ -58,7 +58,7 @@ async function startApolloServer(typeDefs, resolvers){
 
     // Apply the Apollo GraphQL middleware and set the path to /dbs/api
     apolloServer.applyMiddleware({app, path: '/api'});
-    app.listen(port, () => console.log(`Apollo Server at ${process.env.serverURL}/${apolloServer.graphqlPath}`));
+    app.listen(port, () => console.log(`Apollo Server at ${process.env.serverURL}${apolloServer.graphqlPath}`));
 }
 
 startApolloServer(typeDefs, resolvers);
@@ -68,7 +68,7 @@ startApolloServer(typeDefs, resolvers);
 server.listen(port, () => console.log(`The Server is listen at port ${port}`));
 
 // set express app staticFolder
-app.use(express.static(buildFolder));
+//app.use(express.static(buildFolder));
 
 // middleware
 app.use("/", (req, res, next) => {
@@ -79,7 +79,7 @@ app.use("/", (req, res, next) => {
 
 app.use(express.text());
 
-app.use("/dbs", dbRouter);
+//app.use("/dbs", dbRouter);
 
 app.get("/api", (req, res) => {
     console.log("Hello Apollo Server");
@@ -110,10 +110,10 @@ app.get("/", (req, res) => {
     console.log("Hello Universe, from Mfinda");
     
     // redirect para react app server
-    //res.redirect(process.env.clientURL);
+    res.redirect(process.env.RenderClientURL);
 
     //open static reactRootFolder/build/index.html file instead
-    res.sendFile(path.join(buildFolder, "index.html"));
+    //res.sendFile(path.join(buildFolder, "index.html"));
 
 })
 
