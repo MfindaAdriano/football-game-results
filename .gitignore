@@ -2,10 +2,12 @@
 node_modules/
 
 #ignore package.json and pnpm-lock.yaml
-package.json
-pnpm-lock.yaml
+#package.json
+#pnpm-lock.yaml
+.env
 
 # ignore frontend folders and file
-/client/node_modules
+client/node_modules/
+client/build/
 #/client/package-lock.json
-/client/package.json
+#/client/package.json
