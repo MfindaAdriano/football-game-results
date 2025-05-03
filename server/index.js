@@ -11,6 +11,9 @@ const dbRouter = require('./routers/db.js');
 // app port
 const port = process.env.PORT || 4500;
 
+// Render.com client URL
+const RenderClientURL = "https://footballgameresults-client.onrender.com";
+
 //static folder
 const buildFolder = process.env.build;
 
@@ -72,7 +75,7 @@ server.listen(port, () => console.log(`The Server is listen at port ${port}`));
 
 // middleware
 app.use("/", (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", process.env.RenderClientURL);
+    res.setHeader("Access-Control-Allow-Origin", RenderClientURL);
 
     next();
 })
@@ -110,7 +113,7 @@ app.get("/", (req, res) => {
     console.log("Hello Universe, from Mfinda");
     
     // redirect para react app server
-    res.redirect(process.env.RenderClientURL);
+    res.redirect(RenderClientURL);
 
     //open static reactRootFolder/build/index.html file instead
     //res.sendFile(path.join(buildFolder, "index.html"));
