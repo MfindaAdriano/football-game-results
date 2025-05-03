@@ -72,7 +72,7 @@ server.listen(port, () => console.log(`The Server is listen at port ${port}`));
 
 // middleware
 app.use("/", (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", process.env.clientURL);
+    res.setHeader("Access-Control-Allow-Origin", process.env.RenderClientURL);
 
     next();
 })
