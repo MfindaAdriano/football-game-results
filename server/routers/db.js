@@ -8,8 +8,8 @@ require("dotenv").config();
 
 //const DBName = process.env.DBName;
 //const DBName = process.env.atlasDbURL;
-const DBName = "mongodb+srv://mfindaadriano:7689eurica12@cluster0.cogzybo.mongodb.net/football-game-results";
-
+//const DBName = "mongodb+srv://mfindaadriano:7689eurica12@cluster0.cogzybo.mongodb.net/football-game-results";
+const DBName = "mongodb+srv://mfindaadriano:7689eurica12@cluster0.cogzybo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // create a dbApp for the db application implementation and middleware
 const router = express.Router();
 
