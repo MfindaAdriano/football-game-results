@@ -7,7 +7,8 @@ const DbAssets = require('./dbAssets.js');
 require("dotenv").config();
 
 //const DBName = process.env.DBName;
-const DBName = process.env.atlasDbURL;
+//const DBName = process.env.atlasDbURL;
+const DBName = "mongodb+srv://mfindaadriano:7689eurica12@cluster0.cogzybo.mongodb.net/football-game-results";
 
 // create a dbApp for the db application implementation and middleware
 const router = express.Router();
