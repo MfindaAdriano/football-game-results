@@ -82,7 +82,7 @@ app.use("/", (req, res, next) => {
 
 app.use(express.text());
 
-//app.use("/dbs", dbRouter);
+app.use("/dbs", dbRouter);
 
 app.get("/api", (req, res) => {
     console.log("Hello Apollo Server");
