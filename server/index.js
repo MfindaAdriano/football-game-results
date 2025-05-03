@@ -13,6 +13,7 @@ const port = process.env.PORT || 4500;
 
 // Render.com client URL
 const RenderClientURL = "https://footballgameresults-client.onrender.com";
+//const RenderClientURL = "http://localhost:3000";
 
 //static folder
 const buildFolder = process.env.build;
