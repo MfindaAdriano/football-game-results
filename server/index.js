@@ -12,8 +12,9 @@ const dbRouter = require('./routers/db.js');
 const port = process.env.PORT || 4500;
 
 // Render.com client URL
-const RenderClientURL = "https://footballgameresults-client.onrender.com";
+//const RenderClientURL = "https://footballgameresults-client.onrender.com";
 //const RenderClientURL = "http://localhost:3000";
+const RenderClientURL = process.env.RenderClientURL;
 
 //static folder
 const buildFolder = process.env.build;
